@@ -110,17 +110,17 @@ if(input == 1){
                                         alert("Invalid PIN, please try again")
                                         window.location.href = "account.html";
                                     }
-
+                        
                         }else if(amount > userUSSDDetails[accountnumber]["balance"]){
                             alert("Insufficient Balance, try again")
                             window.location.href = "account.html";
 
-
+                        // invalid block
                         }else{
                             alert("Invalid Input, try again")
                             window.location.href = "account.html";
                         }
-
+            //exit block
             }else if(network == 5){
                 alert("Thank you!!")
                 window.location.href = "index.html";
@@ -144,8 +144,10 @@ if(input == 1){
 //Transfer Block
  }else if(input == 2){
 
-       let transfer = Number(prompt("enter amount to transfer"));
+        let transfer = Number(prompt("enter amount to transfer"));
+        let bankName = prompt("Select Destination Bank, press \n1. Access \n2. FirstBank \n3. GTBank \n4. UBA \n5. Polaris \n6. Wema Bank \n7. Zenith Bank ");
         let transferAccount = prompt("enter account number to transfer to");
+
 
         alert(`You are about to transfer ${transfer}.00 to ${transferAccount}, \npress OK to continue`);
 
@@ -157,13 +159,23 @@ if(input == 1){
 
                 alert(`Transfer Successfull, your balance is ${userUSSDDetails[accountnumber]["balance"]}.00`);
                 window.location.href = "account.html";  
-
+            
+                // account number block
         }else if(transferAccount == accountnumber || transferAccount == "" || transferAccount.length != 12){
             alert("invalid account number");
             window.location.href = "account.html";  
+        
+            //Insufficient balance block
         }else if(transfer > userUSSDDetails[accountnumber]["balance"]){
             alert("insufficient funds");
             window.location.href = "account.html";  
+
+        //bank block
+        }else if(bankName > 7 || bankName < 1){
+            alert("invalid bank");
+            window.location.href = "account.html";
+
+            //invalid amount block
         } else{
             alert("invalid amount");
             window.location.href = "account.html";  
