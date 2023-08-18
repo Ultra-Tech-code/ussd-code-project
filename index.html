@@ -5,7 +5,7 @@
 
    //fetch userDetails from local storage
    let UUSDAccountnumber = JSON.parse(localStorage.getItem("UUSDAccountnumber"));
-   const ussdData = {};
+   let ussdData = {};
 
       if(UUSDAccountnumber == null){
 
@@ -19,14 +19,19 @@
 
                if(accountnumber.length == 12){
 
-                     ussdData[accountnumber] = {
+                    let userData = {
                         pin: pin,
                         balance: balance,
                         accountNumber: accountnumber,
                         phoneNumber: "",
+                        phoneNumberBalance: 0
                      }
 
-                  localStorage.setItem("UUSDDETAILS"+accountnumber,  JSON.stringify(ussdData[accountnumber]));
+                  // Store the user data in the ussdData object using accountnumber as the key
+                  ussdData[accountnumber] = userData;
+                  
+                  //storing it in local storage
+                  localStorage.setItem("UUSDDETAILS",  JSON.stringify(ussdData));
                   localStorage.setItem("UUSDAccountnumber", accountnumber);
                   
                   alert("Your phone number has been successfully setup for UUSD banking")
