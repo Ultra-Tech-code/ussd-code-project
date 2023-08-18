@@ -1,7 +1,11 @@
 # Simple UUSD Code mock
 This repository contains Simple UUSD Code mock. Just playing around
 
-## *384# is the default ussd code
+## Requirement
+UUSD Banking Code - *384#
+Account Number must be 12 digits
+Phone number must be 11 digits 
+
 
 - [Live Link](https://ultra-tech-code.github.io/ussd-code-project/index.html)
 
@@ -28,5 +32,7 @@ cd ussd-code-project
 ```
 
 ### Start your live server
+
+>**_Note_**: Phone number not validated (Regex and all)
 
 Thank you
