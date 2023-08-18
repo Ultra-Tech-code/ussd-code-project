@@ -1,126 +1,56 @@
 <script>
    let code =  prompt("Enter ussd code");
-   if(code != null && code == "*384*335#" ){
+   if(code != null && code == "*384#" ){
+      alert("Welcome to Heros Bank UUSD Banking");
 
    //fetch userDetails from local storage
-   let userPin = JSON.parse(localStorage.getItem("pin"));
+   let UUSDAccountnumber = JSON.parse(localStorage.getItem("UUSDAccountnumber"));
+   const ussdData = {};
 
-      if(userPin == null){
-         alert("oops, You haven't set up your phone number for UUSD banking;")
+      if(UUSDAccountnumber == null){
+
+         alert("oops, You haven't set up your phone number for UUSD banking")
          let input = prompt("press \n1 to setup \n2 to exit");
 
          if(input == 1){
             let accountnumber =  prompt("Enter your Acccount Number \n Acccount Number:");
             let pin = prompt("Enter your PIN \n PIN:");
+            balance = 2000;
 
-            localStorage.setItem("accountNumber", accountnumber);
-            localStorage.setItem("pin", pin);
+               if(accountnumber.length == 12){
 
+                     ussdData[accountnumber] = {
+                        pin: pin,
+                        balance: balance,
+                        accountNumber: accountnumber,
+                        phoneNumber: "",
+                     }
+
+                  localStorage.setItem("UUSDDETAILS"+accountnumber,  JSON.stringify(ussdData[accountnumber]));
+                  localStorage.setItem("UUSDAccountnumber", accountnumber);
+                  
+                  alert("Your phone number has been successfully setup for UUSD banking")
+                  window.location.href = "account.html";
+
+               }else{
+                  alert("Invalid Account Number, try again")
+                  window.location.href = "index.html";
+               }
 
          }else if(input == 2){
             alert("Thank you for using UUSD banking")
          }else{
             alert("invalid input, try again")
-            window.href = index.html;
+            window.location.href = "index.html";
          }
+
+      } else{
+         window.location.href = "account.html";
 
       }
-
-
-
-
-
-
-      let input = prompt("press 1 to Airtime \npress 2 to Transfer \npress 3 to check balance  \npress 4 to exit");
-
-
-      //Airtime Block
-      if(input == 1){
-      let airtimeUser = prompt("press 1 for self \npress 2 for Others \npress 3 to Exit");
-
-      //self Block
-      if(airtimeUser == 1){
-         let network = prompt("Select Network, press \n1. Glo \n2. Airtel \n3. Mtn \n4. Etisalat ]\n5. to exit")
-         let phoneNumber = Number(prompt("Enter phone number: "))
-         let amount = Number(prompt("Enter the amount you will like to recharge"))
-         let networkName;
-         if (network == 1) { networkName = Glo};
-         if (network == 2) { networkName = Airtel};
-         if (network == 3) { networkName = Mtn};
-         if (network == 4) { networkName = Etisalat };
-
-         // if(network == 1){
-         //    networkName = glo;
-         // }
-
-
-         if(network == 1 || network == 2 || network == 3 || network == 4){
-                   if(phoneNumber.length == 11 && amount > 0){
-                     alert(`You are about to buy a ${networkName} airtime of ${amount} on ${phoneNumber}`)
-                     let pin = prompt("Enter PIN to continue")
-
-                             //fetch userDetails from local storage
-                              let userDetails = JSON.parse(localStorage.getItem(accountNumber));
-
-
-
-                     }else{
-                        alert("Invalid Number, Verify and try again")
-                        window.href="index.html";
-                     }
-
-         }else if(network == 5){
-            alert("Thank you!!")
-            window.href="index.html";
-
-         }else{
-            alert("Invalid Input, please try again")
-            window.href = index.html;
-         }
-
-
-
-      //Others Block
-      }else if(airtimeUser == 2){
-
-
-
-      //Exit Block
-      }else if (airtimeUser == 3){
-
-
-
-      //invalid block
-      }else{
-
-      }
-
-       let accountnumber =  prompt("Enter your Acccount Number to login \n Acccount Number:");
-       let password = prompt("Enter your pin to login \n PIN:");
-
-        //fetch userDetails from local storage
-        let userDetails = JSON.parse(localStorage.getItem(accountnumber));
-        console.log(userDetails, userDetails);
-
-         if(userDetails !== null && accountnumber == userDetails["accountNumber"] && password == userDetails["password"]){
-              alert("Login successful");
-              localStorage.setItem("accountNumber", accountnumber);
-              window.location.href = "account.html";
-            }else if(userDetails == null){
-                alert("Invalid Login Details. please register");
-                window.location.href = "index.html";
-            }else{
-                alert("Invalid Acccount Number or PIN. \nplease try again");
-                window.location.href = "index.html";
-            }
-         
-         }
-
-        
-        
-
-
+   
    }else{
-      alert("The code enter is nt associated with any of our services")
+       alert("The code enter is not associated with any of our services");
+       window.location.href = "index.html";
    }
 </script>

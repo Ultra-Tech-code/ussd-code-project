@@ -1,0 +1,115 @@
+<script>
+
+let input = prompt("press 1 to Airtime \npress 2 to Transfer \npress 3 to check balance  \npress 4 to exit");
+//fetch userDetails from local storage
+let accountnumber = localStorage.getItem("UUSDAccountnumber");
+let userUSSDDetails = JSON.parse(localStorage.getItem("UUSDDETAILS"+accountnumber));
+
+let balance = userUSSDDetails["balance"];
+let pin = userUSSDDetails["pin"];
+
+//Airtime Block
+if(input == 1){
+let airtimeUser = prompt("press 1 for self \npress 2 for Others \npress 3 to Exit");
+
+//self Block
+if(airtimeUser == 1){
+   let network = prompt("Select Network, press \n1. Glo \n2. Airtel \n3. Mtn \n4. Etisalat ]\n5. to exit")
+   let phoneNumber = Number(prompt("Enter phone number: "))
+   let amount = Number(prompt("Enter the amount you will like to recharge"))
+   let networkName;
+   if (network == 1) { networkName = Glo};
+   if (network == 2) { networkName = Airtel};
+   if (network == 3) { networkName = Mtn};
+   if (network == 4) { networkName = Etisalat };
+
+
+   if(network == 1 || network == 2 || network == 3 || network == 4){
+            
+            //check if user has enough balance and phone number is valid
+             if(phoneNumber.length == 11 && amount > 0 && amount <= userUSSDDetails["balance"]){
+                
+               alert(`You are about to buy a ${networkName} airtime of ${amount} on ${phoneNumber}`)
+               let userPin = prompt("Enter PIN to continue")
+
+                        //check if pin is correct
+                        if(userPin == pin){
+
+                            //update balance
+                            userUSSDDetails["balance"] -= Number(amount);
+                            localStorage.setItem("UUSDDETAILS"+accountnumber, JSON.stringify(userUSSDDetails));
+
+                            alert(`You have successfully bought a ${networkName} airtime of ${amount} on ${phoneNumber}`)
+                            alert("your new balance is " + userUSSDDetails["balance"])
+                            window.location.href = "index.html";
+
+                        }else{
+                            alert("Invalid PIN, please try again")
+                            window.location.href = "index.html";
+                        }
+
+               }else if(phoneNumber.length != 11){
+                 alert("Invalid Number, Verify and try again")
+                  window.location.href = "index.html";
+
+
+               }else if(amount > userUSSDDetails["balance"]){
+                 alert("Insufficient Balance, try again")
+                  window.location.href = "index.html";
+
+
+               }else{
+                  alert("Invalid Input, try again")
+                  window.location.href = "index.html";
+               }
+
+   }else if(network == 5){
+      alert("Thank you!!")
+      window.location.href = "index.html";
+
+   }else{
+      alert("Invalid Input, please try again")
+      window.location.href = "index.html";
+   }
+
+
+
+//Others Block
+}else if(airtimeUser == 2){
+
+
+
+//Exit Block
+}else if (airtimeUser == 3){
+
+
+
+//invalid block
+}else{
+
+}
+
+ let accountnumber =  prompt("Enter your Acccount Number to login \n Acccount Number:");
+ let password = prompt("Enter your pin to login \n PIN:");
+
+  //fetch userDetails from local storage
+  let userDetails = JSON.parse(localStorage.getItem(accountnumber));
+  console.log(userDetails, userDetails);
+
+   if(userDetails !== null && accountnumber == userDetails["accountNumber"] && password == userDetails["password"]){
+        alert("Login successful");
+        localStorage.setItem("accountNumber", accountnumber);
+        window.location.href = "account.html";
+      }else if(userDetails == null){
+          alert("Invalid Login Details. please register");
+          window.location.href = "index.html";
+      }else{
+          alert("Invalid Acccount Number or PIN. \nplease try again");
+          window.location.href = "index.html";
+      }
+   
+   }
+
+
+
+</script>
